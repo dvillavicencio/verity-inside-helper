@@ -1,7 +1,16 @@
 <script>
-  import Triangle from "../lib/components/triangle.svelte";
+  import ShapeSelector from "../lib/components/StatueShapeSelector/StatueSelector.svelte";
 </script>
-<header>
-   <Triangle />
-</header>
+<style>
+  .container {
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<div class="container">
+  <ShapeSelector />
+</div>
 
