@@ -26,7 +26,7 @@ function handleClick() {
 
 .triangle-fill {
   position: absolute;
-  top: 0.333vw;
+  top: .333vw;
   left: .25vw; 
   width: 0;
   height: 0;
