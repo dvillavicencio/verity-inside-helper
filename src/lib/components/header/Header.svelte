@@ -28,9 +28,7 @@
   cursor: pointer;
 }
 
-.empty {
-
-}
+.empty { }
 </style>
 
 <div class="header">

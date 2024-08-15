@@ -1,8 +1,12 @@
 <script>
-let isClicked=false;
-function handleClick() {
-  isClicked = !isClicked;
-}
+  import { createEventDispatcher } from 'svelte'; 
+  export let isClicked=false;
+
+  const disptacher = createEventDispatcher();
+  function handleClick() {
+    isClicked = !isClicked;
+    dispatcher('click');
+  }
 </script>
 
 <style>
@@ -26,13 +30,13 @@ function handleClick() {
 
 .triangle-fill {
   position: absolute;
-  top: .333vw;
-  left: .25vw; 
+  top: .475vw;
+  left: .387vw; 
   width: 0;
   height: 0;
-  border-left: 2.25vw solid transparent;
-  border-right: 2.25vw solid transparent;
-  border-bottom: 4.5vw solid white;
+  border-left: 2.125vw solid transparent;
+  border-right: 2.125vw solid transparent;
+  border-bottom: 4.25vw solid white;
 }
 
 .triangle-container:hover .triangle-edge {

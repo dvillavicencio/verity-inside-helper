@@ -1,7 +1,11 @@
 <script>
-  let isClicked = false;
-  function handleClick() { 
+  import { createEventDispatcher } from 'svelte'; 
+  export let isClicked=false;
+
+  const disptacher = createEventDispatcher();
+  function handleClick() {
     isClicked = !isClicked;
+    dispatcher('click');
   }
 </script>
 

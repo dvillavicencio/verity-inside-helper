@@ -1,6 +1,8 @@
 <script>
-  import ShapeSelector from "../lib/components/StatueShapeSelector/StatueSelector.svelte";
+  import StatueSelector from "../lib/components/StatueShapeSelector/StatueSelector.svelte";
   import Header from "../lib/components/header/Header.svelte";
+  import ShapeSelector from "../lib/components/ShapeSelector/ShapeSelector.svelte";
+  import StatueLocationSelector from "../lib/components/StatueLocationSelector/StatueLocationSelector.svelte";
 </script>
 <style>
   .container {
@@ -13,6 +15,8 @@
 
 <div class="container">
   <Header />
+  <StatueLocationSelector />
+  <StatueSelector />
   <ShapeSelector />
 </div>
 
