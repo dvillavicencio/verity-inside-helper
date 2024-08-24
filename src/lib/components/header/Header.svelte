@@ -1,6 +1,3 @@
-<script>
-
-</script>
 <style>
 .header {
   display: grid;
@@ -24,18 +21,58 @@
 }
 
 .github-button, .theme-toggle {
-  padding: 5px 10px;
   cursor: pointer;
 }
 
-.empty { }
+.container { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5vw;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media(max-width: 480px) {
+  .verity-title {
+    font-size: 18px;
+  }
+
+  .theme-toggle {
+    font-size: 16px; 
+  }
+
+  .github-link {
+    font-size: 16px;
+  }
+
+  .theme-toggle {
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
 </style>
 
 <div class="header">
-  <div class="empty"></div>
+  <div class="container">
+    <a class="github-link" href="https://github.com/dvillavicencio/verity-inside-helper" target="blank">
+      Source
+    </a>
+  </div>
   <h1 class="verity-title">Verity Helper (Inside)</h1> 
-  <div class="buttons">
-    <a class="github-button">Source</a>
-    <button class="theme-toggle">Dark/Light Mode</button>
+  <div class="container">
+    <button class="theme-toggle"></button>
   </div>
 </div>

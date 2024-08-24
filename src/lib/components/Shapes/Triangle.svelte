@@ -1,20 +1,18 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte'; 
-  export let isClicked=false;
 
-  const disptacher = createEventDispatcher();
+  export let isClicked: boolean = false;
+
+  const dispatch = createEventDispatcher();
   function handleClick() {
     isClicked = !isClicked;
-    dispatcher('click');
+    dispatch('select');
   }
 </script>
 
 <style>
 .triangle-container {
   position: relative;
-  width: 5vw;
-  height: 5vw;
-  margin: .2vw;
 }
 
 .triangle-edge {
@@ -23,27 +21,19 @@
   left: 0;
   width: 0;
   height: 0;
-  border-left: 2.5vw solid transparent;
-  border-right: 2.5vw solid transparent;
-  border-bottom: 5vw solid black;
 }
 
 .triangle-fill {
   position: absolute;
-  top: .475vw;
-  left: .387vw; 
   width: 0;
   height: 0;
-  border-left: 2.125vw solid transparent;
-  border-right: 2.125vw solid transparent;
-  border-bottom: 4.25vw solid white;
 }
 
-.triangle-container:hover .triangle-edge {
+.triangle-edge, .triangle-container:active .triangle-edge {
   border-bottom-color: #99B6FF;
 }
 
-.triangle-container:hover .triangle-fill {
+.triangle-fill, .triangle-container:active .triangle-fill {
   border-bottom-color: #EFF6FF;
 }
 
@@ -51,6 +41,26 @@
   border-bottom-color: #2D68FE;
 }
 
+@media(max-width: 480px) {
+  .triangle-container {
+    width: 90px;
+    height: 90px;
+  }
+
+  .triangle-edge {
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-bottom: 90px solid black;
+  }
+
+  .triangle-fill {
+    top: 8.69px;
+    left: 7.5px;
+    border-left: 37.5px solid transparent;
+    border-right: 37.5px solid transparent;
+    border-bottom: 75px solid white; 
+  }
+}
 </style>
 
 <div class="triangle-container" on:click={handleClick} class:selected={isClicked}> 
