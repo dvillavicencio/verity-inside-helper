@@ -20,9 +20,7 @@ function defineSteps(location: StatueLocation, statueShape: Shape, shapes: Shape
   const otherShapes: Shape[] = getOtherShapes(statueShape);
   const resultingShape: Shape = getResultingShape(statueShape);
   if(!doubled) {
-    const key = Object.keys(shapes)
-      .find(key => key !== statueShape && shapes[key]); 
-    const value = key ? shapes[key] : undefined;
+    const value = shapes.find(s => s !== statueShape);
     return [`KILL a knight until it drops a <b>${value}</b>`, 
       `DEPOSIT the <b>${value}</b> on the statue holding a <b>${value}</b>`,
       `WAIT until the other two guardians have double shapes as well`,
