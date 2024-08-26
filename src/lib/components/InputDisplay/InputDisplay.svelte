@@ -2,7 +2,7 @@
 import StatueLocationSelector from "../StatueLocationSelector/StatueLocationSelector.svelte";
 import StatueShapeSelector from "../StatueShapeSelector/StatueShapeSelector.svelte";
 import ShapeSelector from "../ShapeSelector/ShapeSelector.svelte";
-
+import { fly } from "svelte/transition";
 import { Shape } from "../../Enums/Shape.ts";
 import { StatueLocation } from "../../Enums/StatueLocation.ts";
 import type { InputData } from "../../Types/InputData.ts";
@@ -112,28 +112,37 @@ function reset() {
 }
 </script>
 
-<div class="input-container">
-  <StatueLocationSelector on:statueSelect={setLocation} {resetEnabled}/>
-  <StatueShapeSelector on:selectShape={setStatueShape} {resetEnabled}/>
-  <ShapeSelector on:shapes={setShapes} {resetEnabled}/>
-</div>
-<div class="output-container">
-  {#if statueLocation !== null && statueShape !== null && shapes.length == 2} 
+<div class="container">
+  <div class="input-container">
+    <StatueLocationSelector on:statueSelect={setLocation} {resetEnabled}/>
+    <StatueShapeSelector on:selectShape={setStatueShape} {resetEnabled}/>
+    <ShapeSelector on:shapes={setShapes} {resetEnabled}/>
+  </div>
+{#if statueLocation !== null && statueShape !== null && shapes.length == 2} 
+  <div class="output-container" transition:fly={{x: 50, duration: 500}}> 
     <h3 class="title">Steps:</h3>
     {#each defineSteps(statueLocation, statueShape, shapes) as step, i}
       <p>{++i}. {@html step}</p> 
-    {/each}
-  {/if}
+    {/each} 
+  </div>
+{/if}
 </div>
 {#if resetEnabled}
   <button class="reset" on:click={reset}>reset</button>
 {/if}
 
 <style>
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+}
+
 .input-container {
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2vw;
 }
 
@@ -145,7 +154,6 @@ function reset() {
   align-content: start;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 0 5vw; 
 }
 
 .title {
@@ -156,6 +164,13 @@ function reset() {
   position: fixed;
   bottom: 3vw;
   right: 3vw;
+}
+
+@media(min-width: 480px) {
+  .container {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 </style>
 
