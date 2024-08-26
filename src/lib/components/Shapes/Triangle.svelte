@@ -13,6 +13,8 @@
 <style>
 .triangle-container {
   position: relative;
+  width: 90px;
+  height: 90px;
 }
 
 .triangle-edge {
@@ -21,19 +23,27 @@
   left: 0;
   width: 0;
   height: 0;
+  border-left: 45px solid transparent;
+  border-right: 45px solid transparent;
+  border-bottom: 90px solid black;
 }
 
 .triangle-fill {
   position: absolute;
   width: 0;
   height: 0;
+  top: 8.69px;
+  left: 7.5px;
+  border-left: 37.5px solid transparent;
+  border-right: 37.5px solid transparent;
+  border-bottom: 75px solid white; 
 }
 
-.triangle-edge, .triangle-container:active .triangle-edge {
+.triangle-container:active .triangle-edge {
   border-bottom-color: #99B6FF;
 }
 
-.triangle-fill, .triangle-container:active .triangle-fill {
+.triangle-container:active .triangle-fill {
   border-bottom-color: #EFF6FF;
 }
 
@@ -41,24 +51,36 @@
   border-bottom-color: #2D68FE;
 }
 
-@media(max-width: 480px) {
+@media(min-width: 480px) {
   .triangle-container {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
   }
 
   .triangle-edge {
-    border-left: 45px solid transparent;
-    border-right: 45px solid transparent;
-    border-bottom: 90px solid black;
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+    border-bottom: 110px solid black;
   }
 
   .triangle-fill {
     top: 8.69px;
     left: 7.5px;
-    border-left: 37.5px solid transparent;
-    border-right: 37.5px solid transparent;
-    border-bottom: 75px solid white; 
+    border-left: 47.5px solid transparent;
+    border-right: 47.5px solid transparent;
+    border-bottom: 95px solid white; 
+  }
+
+  .triangle-container:hover .triangle-edge {
+    border-bottom-color: #2D68FE;
+  }
+
+  .triangle-container:hover .triangle-fill {
+    border-bottom-color: #EFF6FF;
+  }
+
+  .triangle-container:active .triangle-fill {
+    border-bottom-color: #cfe4ff;
   }
 }
 </style>

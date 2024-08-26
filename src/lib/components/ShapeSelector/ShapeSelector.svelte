@@ -5,6 +5,8 @@
   import { Shape } from "../../Enums/Shape.ts"; 
   import { createEventDispatcher } from "svelte";
 
+  export let resetEnabled: boolean;
+   
   let shapes: Shape[] = [];
   let doubled: boolean = false;
  
@@ -13,6 +15,11 @@
   $: isTriangleClicked = shapes.includes(Shape.Triangle);
   $: isCircleClicked = shapes.includes(Shape.Circle);
   $: isSquareClicked = shapes.includes(Shape.Square);
+
+  $: if(resetEnabled === false) {
+    shapes = [];
+    doubled = false;
+  }
 
   const dispatch = createEventDispatcher<{
     shapes: Shape[]; 
@@ -61,12 +68,13 @@
   justify-content: center;
   text-align: center;
   margin: 1vw;
-  gap: .5vw;
+  gap: 1vw;
 }
 
 .shape-container {
   display: flex;
-  gap: 5vw;
+  gap: 8vw;
+  marign: 1vw;
 }
 
 .checkbox-container {
@@ -86,7 +94,11 @@
   </div>
   <div class="checkbox-container">
     <div class="doubled">
-      <input type="checkbox" id="doubled" disabled={shouldDisableCheckmark} on:click={doubleShape}/>
+      <input type="checkbox" id="doubled" 
+        disabled={shouldDisableCheckmark} 
+        on:click={doubleShape} 
+        bind:checked={doubled}
+      />
       <label for="doubled">Doubled</label>
     </div>
   </div>

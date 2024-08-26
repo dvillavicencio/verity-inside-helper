@@ -35,11 +35,11 @@
     justify-content: center;
     text-align: center;
     margin: 1vw;
-    gap: .5vw
+    gap: 1vw
   }
   .shape-container {
     display: flex;
-    gap: 5vw;
+    gap: 8vw;
   }
 </style>
 

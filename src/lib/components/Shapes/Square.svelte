@@ -13,6 +13,8 @@
 <style>
 .square-container {
   position: relative;
+  width: 90px;
+  height: 90px;
 }
 
 .square-edge {
@@ -20,18 +22,24 @@
   top: 0;
   bottom: 0;
   background-color: black;
+  width: 90px;
+  height: 90px;
 }
 
 .square-fill {
   position: absolute;
   background-color: white;
+  top: 5px;
+  left: 5px;
+  width: 80px;
+  height: 80px;
 }
 
-.square-container:hover, .square-container:active .square-edge {
+.square-container:active .square-edge {
   background-color: #99B6FF;
 }
 
-.square-container.hover, .square-container:active .square-fill {
+.square-container:active .square-fill {
   background-color: #EFF6FF;
 }
 
@@ -39,22 +47,34 @@
  background-color: #2D68FE; 
 }
 
-@media (max-width: 480px) {
+@media (min-width: 480px) {
   .square-container {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
   }
 
   .square-edge {
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
   }
 
   .square-fill {
     top: 5px;
     left: 5px;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .square-container:hover .square-edge {
+    background-color: #2D68FE;
+  }
+
+  .square-container:hover .square-fill {
+    background-color: #EFF6FF;
+  }
+
+  .square-container:active .square-fill {
+    background-color: #cfe4ff;
   }
 }
 </style>

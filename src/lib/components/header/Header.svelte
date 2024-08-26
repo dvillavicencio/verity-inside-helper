@@ -40,7 +40,7 @@ a:visited {
   color: black;
 }
 
-a:hover {
+a:hover, a:active {
   text-decoration: underline;
 }
 
@@ -60,7 +60,7 @@ a:hover {
   .theme-toggle {
     font-size: 16px;
     width: 40px;
-    height: 40px;
+    height: 20px;
   }
 }
 </style>
@@ -72,7 +72,7 @@ a:hover {
     </a>
   </div>
   <h1 class="verity-title">Verity Helper (Inside)</h1> 
-  <div class="container">
-    <button class="theme-toggle"></button>
-  </div>
+  <!-- <div class="container"> -->
+  <!--   <button class="theme-toggle"></button> -->
+  <!-- </div> -->
 </div>

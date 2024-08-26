@@ -18,31 +18,34 @@ function defineSteps(location: StatueLocation, statueShape: Shape, shapes: Shape
 
   const otherLocations: StatueLocation[] = getOtherLocations(location);
   const otherShapes: Shape[] = getOtherShapes(statueShape);
+  const resultingShape: Shape = getResultingShape(statueShape);
   if(!doubled) {
     const key = Object.keys(shapes)
       .find(key => key !== statueShape && shapes[key]); 
     const value = key ? shapes[key] : undefined;
-    return [`KILL a KNIGHT until it drops a ${value}`, 
-      `DEPOSIT ${value} on the statue holding ${value}`,
-      `WAIT until the other two guardians have DOUBLE SHAPES as well`,
-      `KILL the leftover KNIGHT and DEPOSIT ${statueShape} on ${otherLocations[0]}`,
-      `KILL the OGRE`,
-      `KILL the KNIGHT until it drops a second ${statueShape}`,
-      `DEPOSIT the ${statueShape} on ${otherLocations[1]}`,
-      `Up in the wall you should have ONLY one ${otherShapes[0]} and one ${otherShapes[1]}`,
-      `KILL KNIGHTs and OGREs and pick up both ${otherShapes[0]} and ${otherShapes[1]} at the same time`,
-      `If dissection outside has been done correctly, WALK THROUGH the crystal wall on the back of the room`
+    return [`KILL a knight until it drops a <b>${value}</b>`, 
+      `DEPOSIT the <b>${value}</b> on the statue holding a <b>${value}</b>`,
+      `WAIT until the other two guardians have double shapes as well`,
+      `KILL another knight and DEPOSIT the <b>${statueShape}</b> on <b>${otherLocations[0]}</b>`,
+      `KILL an ogre if there is one`,
+      `KILL a knight until it drops a second <b>${statueShape}</b>`,
+      `DEPOSIT the <b>${statueShape}</b> on <b>${otherLocations[1]}</b>`,
+      `Up in the wall you should have ONLY one <b>${otherShapes[0]}</b> and one <b>${otherShapes[1]}</b>`,
+      `KILL knights and ogres and pick up both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b>`,
+      `If done correctly, you should now be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
+      `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`
     ]; 
   } else {
     return [
-      `WAIT until the other two guardians have DOUBLE SHAPES as well`,
-      `KILL a KNIGHT and PICK UP the ${statueShape}`,
-      `DEPOSIT ${statueShape} to ${otherLocations[0]}`,
-      `KILL the leftover KNIGHT and PICK UP the other ${statueShape}`,
-      `DEPOSIT ${statueShape} on ${otherLocations[1]}`,
-      `Up in the wall you should have ONLY one ${otherShapes[0]} and one ${otherShapes[1]}`,
-      `KILL KNIGHTs and OGREs and pick up both ${otherShapes[0]} and ${otherShapes[1]} at the same time`,
-      `If dissection outside has been done correctly, WALK THROUGH the crystal wall on the back of the room`
+      `<b>WAIT</b> until the other two guardians have double shapes`,
+      `KILL a knight and PICK a <b>${statueShape}</b>`,
+      `DEPOSIT <b>${statueShape}</b> on <b>${otherLocations[0]}</b>`,
+      `KILL another knight until it drops a <b>${statueShape}</b>`,
+      `DEPOSIT <b>${statueShape}</b> on <b>${otherLocations[1]}</b>`,
+      `Up in the wall you should have ONLY one <b>${otherShapes[0]}</b> and one <b>${otherShapes[1]}</b>`,
+      `KILL knights and ogres and pick up both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b> at the same time`,
+      `If done correctly, you should not be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
+      `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`
     ];
   }
 } 
@@ -75,6 +78,19 @@ function getOtherShapes(shape: Shape): Shape[]{
     }
   }
 
+function getResultingShape(shape: StatueShape): Shape {
+  switch(shape) {
+    case Shape.Triangle:
+      return Shape.Cylinder;
+    case Shape.Square:
+      return Shape.Cone;
+    case Shape.Circle:
+      return Shape.Prism;
+    default:
+      return new Error("Shape passed in is not a 2D shape");
+  }
+}
+
 function getOtherLocations(currentLocation: StatueLocation): StatueLocation[] {
   switch(currentLocation) {
     case StatueLocation.Left:
@@ -99,13 +115,13 @@ function reset() {
 <div class="input-container">
   <StatueLocationSelector on:statueSelect={setLocation} {resetEnabled}/>
   <StatueShapeSelector on:selectShape={setStatueShape} {resetEnabled}/>
-  <ShapeSelector on:shapes={setShapes} />
+  <ShapeSelector on:shapes={setShapes} {resetEnabled}/>
 </div>
 <div class="output-container">
   {#if statueLocation !== null && statueShape !== null && shapes.length == 2} 
     <h3 class="title">Steps:</h3>
     {#each defineSteps(statueLocation, statueShape, shapes) as step, i}
-      <p>{++i}. {step}</p> 
+      <p>{++i}. {@html step}</p> 
     {/each}
   {/if}
 </div>
