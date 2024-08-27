@@ -158,6 +158,14 @@ function scrollToOutput() {
   }
 }
 
+function errorMessageDescription(shapes: Shape[]): string {
+  if(shapes[0] === shapes[1]) {
+    return `you can never start with double ${shapes[0]}s on your wall`;
+  } else {
+    return `you can never start with ${getOtherShapes(statueShape)[0]} and ${getOtherShapes(statueShape)[1]} on your wall`;
+  }
+}
+
 $: if(outputContainer && window.innerWidth <= 480) {
   scrollToOutput();
 }
@@ -170,8 +178,7 @@ $: if(outputContainer && window.innerWidth <= 480) {
         <p class="error-message">
           The shapes you put in are wrong.
           <br />
-          If your statue is holding a {statueShape} you can never have {getOtherShapes(statueShape)[0]} and {getOtherShapes(statueShape)[1]} in your wall
-        </p>
+          If your statue is holding a {statueShape} {errorMessageDescription(shapes)}</p>
       </div>
     {/if}
     <StatueLocationSelector on:statueSelect={setLocation} {resetEnabled}/>
