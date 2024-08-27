@@ -2,7 +2,7 @@
   export function scrollToTop() {
     let top = document.querySelector(".header");
     if(top) {
-      top.scrollIntoView({ behavior: "smooth" });
+      top.scrollIntoView({ behavior: "smooth", inline: "start", block: "start"});
     }
   }
 </script>

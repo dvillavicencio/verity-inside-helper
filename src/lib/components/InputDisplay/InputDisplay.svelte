@@ -72,7 +72,6 @@ function validateAndUpdateOutput() {
 
 function validateInput(statueShape: Shape, shapesHeld: Shape[]): boolean {
   let valid = shapesHeld.filter(item => item === statueShape);
-  console.log(valid);
   return statueShape !== null && shapesHeld.length > 0 && valid.length != 0;
 }
 
