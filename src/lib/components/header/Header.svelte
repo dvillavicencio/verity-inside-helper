@@ -1,3 +1,12 @@
+<script>
+  export function scrollToTop() {
+    let top = document.querySelector(".header");
+    if(top) {
+      top.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+</script>
+
 <style>
 .header {
   display: grid;

@@ -6,12 +6,19 @@ import { fly } from "svelte/transition";
 import { Shape } from "../../Enums/Shape.ts";
 import { StatueLocation } from "../../Enums/StatueLocation.ts";
 import type { InputData } from "../../Types/InputData.ts";
+import { createEventDispatcher, tick } from "svelte";
+
+const RESET_EVENT: String = "reset";
+const dispatch = createEventDispatcher();
 
 let shapes: Shape[] = [];
 let statueShape: Shape = null;
 let statueLocation: StatueLocation = null;
 
 let resetEnabled: boolean = false;
+
+let outputContainer;
+let inputContainer;
 
 function defineSteps(location: StatueLocation, statueShape: Shape, shapes: Shape[]): string[] { 
   let doubled: boolean = shapes[0] === shapes[1];
@@ -107,17 +114,38 @@ function reset() {
   statueLocation = null;
   statueShape = null;
   shapes = [];
+  dispatch(RESET_EVENT);
+}
+
+function outputTransition(node) {
+  let viewportWidth = window.innerWidth;
+  if(viewportWidth > 480) {
+    return fly(node, {x: 50, duration: 500});
+  } else {
+    return fly(node, {y: -50, duration: 500});
+  }
+}
+
+async function scrollToOutput() {
+  await tick();
+  if(outputContainer) {
+    outputContainer.scrollIntoView({ behavior: "smooth" })
+  }
+}
+
+$: if(outputContainer && window.innerWidth <= 480) {
+  scrollToOutput();  
 }
 </script>
 
 <div class="container">
-  <div class="input-container">
+  <div class="input-container" bind:this={inputContainer}>
     <StatueLocationSelector on:statueSelect={setLocation} {resetEnabled}/>
     <StatueShapeSelector on:selectShape={setStatueShape} {resetEnabled}/>
     <ShapeSelector on:shapes={setShapes} {resetEnabled}/>
   </div>
 {#if statueLocation !== null && statueShape !== null && shapes.length == 2} 
-  <div class="output-container" transition:fly={{x: 50, duration: 500}}> 
+  <div class="output-container" bind:this={outputContainer} transition:outputTransition> 
     <h3 class="title">Steps:</h3>
     {#each defineSteps(statueLocation, statueShape, shapes) as step, i}
       <p>{++i}. {@html step}</p> 

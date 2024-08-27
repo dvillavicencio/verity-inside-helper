@@ -3,6 +3,8 @@
   import Header from "../lib/components/header/Header.svelte";
   import InputDisplay from "../lib/components/InputDisplay//InputDisplay.svelte";
   import Footer from "../lib/components/Footer/Footer.svelte";
+  
+  let header;
 </script>
 
 <style>
@@ -23,8 +25,8 @@ div:last-of-type {
 </style>
 
 <div class="main-container">
-  <Header />
-  <InputDisplay />
+  <Header bind:this={header}/>
+  <InputDisplay on:reset={() => header.scrollToTop()}/>
   <div class="footer">
      <Footer />
   </div>
