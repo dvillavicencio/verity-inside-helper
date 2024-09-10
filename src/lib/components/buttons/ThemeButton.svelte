@@ -8,13 +8,12 @@
   const THEME_KEY_NAME: string = 'theme';
 
   // defualt theme is light_mode
-  let theme: string = Theme.LIGHT_MODE;
+  let theme: string = browser ? localStorage.getItem(THEME_KEY_NAME) : Theme.LIGHT_MODE;
 
   onMount(() => {
     const savedTheme = window.localStorage.getItem(THEME_KEY_NAME);
     theme = savedTheme ? savedTheme : Theme.LIGHT_MODE;
     document.documentElement.setAttribute(THEME_KEY_NAME, theme);
-    themeStore.set(theme);
   });
 
   function themeToggle() {
@@ -47,8 +46,6 @@ button {
   border-style: solid;
   cursor: pointer;
 }
-
-button {}
 
 .dark {
   width: 0;
