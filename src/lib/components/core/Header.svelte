@@ -2,6 +2,7 @@
   import { Theme } from "../../Enums/Theme.ts";
   import { browser } from "$app/environment";
   import { themeStore } from "../stores/ThemeStore.ts";
+  import { onMount } from "svelte";
   import ThemeButton from "../buttons/ThemeButton.svelte";
 
   const THEME_KEY: string = "theme";
@@ -14,6 +15,14 @@
   }
 
   let isDarkMode: boolean;
+  onMount(() => {
+    if(browser) {
+      const currentTheme = localStorage.getItem(THEME_KEY);
+      isDarkMode = currentTheme ? currentTheme === Theme.DARK_MODE : false; 
+      themeStore.set(currentTheme);
+    }
+  })
+ 
   themeStore.subscribe((theme) => {
     isDarkMode = theme === Theme.DARK_MODE;
   })
