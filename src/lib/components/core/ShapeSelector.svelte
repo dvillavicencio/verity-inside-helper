@@ -3,6 +3,7 @@
   import Circle from "../Shapes/Circle.svelte";
   import Square from "../Shapes/Square.svelte";
   import { Shape } from "../../Enums/Shape.ts"; 
+
   import { createEventDispatcher } from "svelte";
 
   export let resetEnabled: boolean;
@@ -73,7 +74,7 @@
 
 .shape-container {
   display: flex;
-  gap: 8vw;
+  gap: clamp(16px, 5vw, 32px); 
   marign: 1vw;
 }
 
@@ -82,6 +83,16 @@
   display: flex;
   justify-content: flex-start; 
   margin: 1vw;
+}
+
+p {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+} 
+
+label {
+  color: var(--text-color);
+  transtion: color 0.3s ease;
 }
 </style>
 

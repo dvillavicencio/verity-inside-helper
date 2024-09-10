@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-items: center;
-  gap: 10vw;
+  gap: clamp(24px, 5vw, 32px);
 }
 
 .container {
@@ -42,7 +42,17 @@ fieldset {
 }
 
 label {
+  color: var(--text-color);
+  transitiion: color 0.3s ease;
+}
+
+label {
   margin: 1vw;
+}
+
+p {
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 </style>
 <div class="container">

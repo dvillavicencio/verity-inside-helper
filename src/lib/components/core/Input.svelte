@@ -1,14 +1,17 @@
 <script lang="ts">
-import StatueLocationSelector from "../StatueLocationSelector/StatueLocationSelector.svelte";
-import StatueShapeSelector from "../StatueShapeSelector/StatueShapeSelector.svelte";
-import ShapeSelector from "../ShapeSelector/ShapeSelector.svelte";
+import StatueLocationSelector from "./StatueLocationSelector.svelte";
+import StatueShapeSelector from "./StatueShapeSelector.svelte";
+import ShapeSelector from "./ShapeSelector.svelte";
+import RefreshButton from "../buttons/RefreshButton.svelte";
 import { fly } from "svelte/transition";
 import { Shape } from "../../Enums/Shape.ts";
 import { StatueLocation } from "../../Enums/StatueLocation.ts";
 import type { InputData } from "../../Types/InputData.ts";
+
 import { createEventDispatcher, tick, onMount } from "svelte";
 
 const RESET_EVENT: String = "reset";
+
 const dispatch = createEventDispatcher();
 
 let shapes: Shape[] = [];
@@ -171,7 +174,7 @@ $: if(outputContainer && window.innerWidth <= 480) {
 }
 </script>
 
-<div class="container" bind:this={container}> 
+<main bind:this={container}> 
   <div class="input-container" bind:this={inputContainer}>
     {#if errorMessageVisible}
       <div class="error-container" transition:outputTransition>
@@ -189,20 +192,21 @@ $: if(outputContainer && window.innerWidth <= 480) {
     <div class="output-container" bind:this={outputContainer} transition:outputTransition> 
       <h3 class="title">Steps:</h3>
       {#each defineSteps(statueLocation, statueShape, shapes) as step, i}
-        <p>{++i}. {@html step}</p> 
+        <p class="list-item">{++i}. {@html step}</p> 
       {/each} 
     </div>
   {/if}
-</div>
+</main>
 {#if resetEnabled}
-  <button class="reset" on:click={reset}>reset</button>
+  <RefreshButton on:click={reset}/>
 {/if}
 
 <style>
-.container {
+main {
   display: flex;
   flex-direction: column;
-  gap: 2vw;
+  background-color: var(--background-color);
+  transition: background-color 0.5s ease;
 }
 
 .input-container {
@@ -210,23 +214,27 @@ $: if(outputContainer && window.innerWidth <= 480) {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 2vw;
+  background-color: var(--background-color);
+  transition: background-color 0.5s ease;
+  gap: 1rem;
 }
 
 .output-container {
   display: flex;
   flex-direction: column;
-  gap: .5vw;
+  gap: 1rem;
   align-items: start;
   align-content: start;
   justify-content: flex-start;
   flex-wrap: wrap;
+  background-color: var(--background-color);
+  transition: background-color 0.5s ease;
 }
 
 .error-container {
   display: flex;
   flex-direction: column;
-  gap: .5vw;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -238,16 +246,15 @@ $: if(outputContainer && window.innerWidth <= 480) {
 
 .title {
   align-self: center;
+  color: var(--text-color);
 }
 
-.reset {
-  position: fixed;
-  bottom: 3vw;
-  right: 3vw;
+.list-item {
+  color: var(--text-color);
 }
 
-@media(min-width: 480px) {
-  .container {
+@media(min-width: 50em) {
+  main {
     flex-direction: row;
     justify-content: center;
   }

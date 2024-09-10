@@ -39,7 +39,11 @@
   }
   .shape-container {
     display: flex;
-    gap: 8vw;
+    gap: clamp(16px, 5vw, 32px);
+  }
+  p {
+    color: var(--text-color);
+    transition: color 0.3s ease;
   }
 </style>
 

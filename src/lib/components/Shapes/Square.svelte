@@ -17,18 +17,22 @@
   height: 90px;
 }
 
+.square-edge, .square-fill {
+  transition: background-color 0.5s ease;
+}
+
 .square-edge {
   position: absolute;
   top: 0;
   bottom: 0;
-  background-color: black;
+  background-color: var(--outline-color);
   width: 90px;
   height: 90px;
 }
 
 .square-fill {
   position: absolute;
-  background-color: white;
+  background-color: var(--background-color);
   top: 5px;
   left: 5px;
   width: 80px;
@@ -40,14 +44,14 @@
 }
 
 .square-container:active .square-fill {
-  background-color: #EFF6FF;
+  background-color: var(--hover-color);
 }
 
 .selected .square-edge {
  background-color: #2D68FE; 
 }
 
-@media (min-width: 480px) {
+@media (min-width: 50em) {
   .square-container {
     width: 110px;
     height: 110px;
@@ -67,14 +71,17 @@
 
   .square-container:hover .square-edge {
     background-color: #2D68FE;
+    transition-duration: 0s;
   }
 
   .square-container:hover .square-fill {
-    background-color: #EFF6FF;
+    background-color: var(--hover-color);
+    transition-duration: 0s;
   }
 
   .square-container:active .square-fill {
-    background-color: #cfe4ff;
+    background-color: var(--active-color);
+    transition-duration: 0s;
   }
 }
 </style>

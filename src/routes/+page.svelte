@@ -1,9 +1,8 @@
 <script lang="ts">
-  import StatueShapeSelector from "../lib/components/StatueShapeSelector/StatueShapeSelector.svelte";
-  import Header from "../lib/components/header/Header.svelte";
-  import InputDisplay from "../lib/components/InputDisplay//InputDisplay.svelte";
-  import Footer from "../lib/components/Footer/Footer.svelte";
-  
+  import Header from "$lib/components/core/Header.svelte";
+  import Input from "$lib/components/core/Input.svelte";
+  import Footer from "$lib/components/core/Footer.svelte";
+  import RefreshButton from "$lib/components/buttons/RefreshButton.svelte";
   let header;
 </script>
 
@@ -13,12 +12,6 @@
   font-family: "PT-Sans", sans-serif; 
 }
 
-.main-container {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
 div:last-of-type {
   margin-top: auto;
 }
@@ -26,9 +19,7 @@ div:last-of-type {
 
 <div class="main-container">
   <Header bind:this={header}/>
-  <InputDisplay on:reset={() => header.scrollToTop()}/>
-  <div class="footer">
-     <Footer />
-  </div>
+  <Input on:reset={() => header.scrollToTop()}/>
+  <Footer />
 </div>
 

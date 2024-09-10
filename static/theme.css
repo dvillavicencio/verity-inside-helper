@@ -1,0 +1,15 @@
+:root {
+  --background-color: #F1F2F4;
+  --outline-color: #101214;
+  --text-color: #101214;
+  --hover-color: #EFF6FF;
+  --active-color: #cfe4ff;
+}
+
+:root[theme="darkmode"] {
+  --background-color: #22272B;
+  --outline-color: #B6C2CF;
+  --text-color: #DEE4EA;
+  --hover-color: #282E33;
+  --active-color: #38414A;
+}

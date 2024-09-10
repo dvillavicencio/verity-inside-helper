@@ -17,19 +17,23 @@
   height: 90px;
 }
 
+.circle-edge, .circle-fill {
+  transition: background-color 0.5s ease;
+}
+
 .circle-edge {
   position: absolute;
   top: 0;
   left: 0;
   border-radius: 50%;
-  background-color: black;
+  background-color: var(--outline-color);
   width: 90px;
   height: 90px;
 }
 
 .circle-fill {
   position: absolute;
-  background-color: white;
+  background-color: var(--background-color);
   border-radius: 50%;
   top: 5px;
   left: 5px;
@@ -46,10 +50,10 @@
 }
 
 .circle-container:active .circle-fill {
-  background-color: #EFF6FF;
+  background-color: var(--hover-color);
 }
 
-@media (min-width: 480px) {
+@media (min-width: 50rem) {
   .circle-container {
     width: 110px;
     height: 110px;
@@ -69,14 +73,17 @@
 
   .circle-container:hover .circle-edge {
     background-color: #2D68FE;
+    transition-duration: 0s;
   }
 
   .circle-container:hover .circle-fill {
-    background-color: #EFF6FF;
+    background-color: var(--hover-color);
+    transition-duration: 0s;
   }
 
   .circle-container:active .circle-fill {
-    background-color: #cfe4ff;
+    background-color: var(--active-color);
+    transition-duration: 0s;
   }
 }
 </style>

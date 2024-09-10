@@ -3,11 +3,13 @@
 </script>
 
 <style>
-.container {
+footer {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   margin-top: 0;
-  margin-bottom: -10px;
+  margin-bottom: 0px;
+  background-color: var(--background-color);
+  transition: background-color 0.5s ease;
 }
 
 .madeBy {
@@ -15,6 +17,7 @@
 }
 
 a {
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -23,15 +26,19 @@ a:hover {
 }
 
 a:visited {
-  color: black;
+  color: var(--text-color);
   text-decoration: none;
+}
+
+p {
+  color: var(--text-color);
 }
 </style>
 
-<div class="container">
+<footer>
   <div class="madeBy">
     <p>Made by 
       <a href={GITHUB_URL} target="blank">Deahtstroke</a>
     </p>
   </div> 
-</div>
+</footer>
