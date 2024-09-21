@@ -1,6 +1,6 @@
 # Verity Helper (Inside)
 
-Is about time someone made a web application about how to do the inside portion of the Verity encounter.
+Is about time someone made a web application about how to do the inside portion of the Verity encounter. Actually, there are already a ton of these online, there's even a really cool inside-portion simulator that simulates what's happening inside one of the rooms in Verity and its pretty cool. This one doesn't do that, but I think its simple enough so that the people that get teleported inside the encounter can figure out the prompts and get actionable steps to execute.
 
 In all seriousness though, the reason I created this project is because I mainly like to help LFG fireteams and there's still a lot of people that do not know how to solve the encounter both on the inside and the outside portion, and I have sat for hours on end trying to explain to a fellow guardian, something that they will only understand it better once they get their hands dirty. That's partially why I feel that is a good idea to also have a helper application for people trying to understand the general strategy for the inside portion of the encounter.
 
