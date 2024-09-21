@@ -28,16 +28,36 @@
   })
 </script>
 
+<header>
+  <div class="wrapper">
+    <h1 class="verity-title">Verity Helper (Inside)</h1> 
+    <div class="container">
+      <a class="github-link" href="https://github.com/dvillavicencio/verity-inside-helper" target="_blank">
+        {#if isDarkMode}
+          <img src="icons/github-light.svg" width="16px" height="16px"/>
+        {:else}
+          <img src="icons/github-dark.svg" width="16px" height="16px"/>
+        {/if}
+        Source
+      </a>
+      <ThemeButton />
+    </div> 
+  </div>
+</header>
+
 <style>
 header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: .1vw;
-  column-gap: .5vw;
   width: 100%;
   background-color: var(--background-color);
   transition: background-color 0.5s ease;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
 }
 
 .verity-title {
@@ -46,6 +66,7 @@ header {
   color: var(--text-color);
   grid-column: 2;
   transtion: color 0.3s ease;
+  font-size: 1.5rem;
 }
 
 .buttons {
@@ -63,7 +84,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .5vw;
+  gap: 1rem;
 }
 
 a {
@@ -82,10 +103,6 @@ a:hover, a:active {
   text-decoration: underline;
 }
 
-.verity-title {
-  font-size: 2em;
-}
-
 .theme-toggle {
   font-size: 16px; 
 }
@@ -98,27 +115,4 @@ a:hover, a:active {
   width: 40px;
   height: 20px;
 }
-
-@media(max-width: 42rem) {
-  .container {
-    display: none;
-  } 
-}
 </style>
-
-<header>
-  <div class="container">
-    <a class="github-link" href="https://github.com/dvillavicencio/verity-inside-helper" target="_blank">
-      {#if isDarkMode}
-        <img src="icons/github-light.svg" width="16px" height="16px"/>
-      {:else}
-        <img src="icons/github-dark.svg" width="16px" height="16px"/>
-      {/if}
-      Source
-    </a>
-  </div>
-  <h1 class="verity-title">Verity Helper (Inside)</h1> 
-  <div class="container">
-    <ThemeButton />
-  </div>
-</header>

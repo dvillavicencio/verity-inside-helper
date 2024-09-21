@@ -1,7 +1,5 @@
 <script lang="ts">
-  import Triangle from "../Shapes/Triangle.svelte";
-  import Circle from "../Shapes/Circle.svelte";
-  import Square from "../Shapes/Square.svelte";
+  import GenericShape from "./GenericShape.svelte";
   import { Shape } from "../../Enums/Shape.ts";
   import { createEventDispatcher } from "svelte";
 
@@ -27,6 +25,15 @@
   }
 </script>
 
+<div class="container">
+  <p>What shape is your statue holding?</p>
+  <div class="shape-container">
+    <GenericShape isClicked={selectedShape === Shape.Triangle} on:select={() => handleClick(Shape.Triangle)} shapeType={Shape.Triangle} />
+    <GenericShape isClicked={selectedShape === Shape.Circle} on:select={() => handleClick(Shape.Circle)} shapeType={Shape.Circle} />
+    <GenericShape isClicked={selectedShape === Shape.Square} on:select={() => handleClick(Shape.Square)} shapeType={Shape.Square} />
+  </div>
+</div>
+
 <style>
   .container {
     display: flex;
@@ -46,12 +53,3 @@
     transition: color 0.3s ease;
   }
 </style>
-
-<div class="container">
-  <p>What shape is your statue holding?</p>
-  <div class="shape-container">
-     <Triangle isClicked={selectedShape === Shape.Triangle} on:select={() => handleClick(Shape.Triangle)}/>
-     <Circle isClicked={selectedShape === Shape.Circle} on:select={() => handleClick(Shape.Circle)}/>
-     <Square isClicked={selectedShape === Shape.Square} on:select={() => handleClick(Shape.Square)}/>
-  </div>
-</div>

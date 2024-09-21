@@ -207,6 +207,7 @@ main {
   flex-direction: column;
   background-color: var(--background-color);
   transition: background-color 0.5s ease;
+  gap: 2rem;
 }
 
 .input-container {
@@ -229,6 +230,7 @@ main {
   flex-wrap: wrap;
   background-color: var(--background-color);
   transition: background-color 0.5s ease;
+  margin: 0rem 3rem;
 }
 
 .error-container {
@@ -257,6 +259,10 @@ main {
   main {
     flex-direction: row;
     justify-content: center;
+  }
+
+  output-container {
+    margin: 2rem;
   }
 }
 </style>

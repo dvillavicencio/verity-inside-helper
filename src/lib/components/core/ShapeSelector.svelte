@@ -1,7 +1,5 @@
 <script lang="ts">
-  import Triangle from "../Shapes/Triangle.svelte";
-  import Circle from "../Shapes/Circle.svelte";
-  import Square from "../Shapes/Square.svelte";
+  import GenericShape from "./GenericShape.svelte";
   import { Shape } from "../../Enums/Shape.ts"; 
 
   import { createEventDispatcher } from "svelte";
@@ -99,9 +97,9 @@ label {
 <div class="container">
   <p>What shapes appear on your wall?</p>
   <div class="shape-container">
-    <Triangle isClicked={isTriangleClicked} on:select={() => addShape(Shape.Triangle)}/>
-    <Circle isClicked={isCircleClicked} on:select={() => addShape(Shape.Circle)}/>
-    <Square isClicked={isSquareClicked} on:select={() => addShape(Shape.Square)}/>
+    <GenericShape shapeType={Shape.Triangle} isClicked={isTriangleClicked} on:select={() => addShape(Shape.Triangle)}/>
+    <GenericShape shapeType={Shape.Circle} isClicked={isCircleClicked} on:select={() => addShape(Shape.Circle)}/>
+    <GenericShape shapeType={Shape.Square} isClicked={isSquareClicked} on:select={() => addShape(Shape.Square)}/>
   </div>
   <div class="checkbox-container">
     <div class="doubled">

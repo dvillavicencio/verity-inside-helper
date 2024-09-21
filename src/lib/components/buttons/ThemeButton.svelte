@@ -3,7 +3,6 @@
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
   import { themeStore } from "../stores/ThemeStore.ts";
-  import { fly } from "svelte/transition";
 
   const THEME_KEY_NAME: string = 'theme';
 
@@ -30,9 +29,9 @@
 
 <button on:click={themeToggle}>
   {#if theme === Theme.DARK_MODE}
-    <div class="light" transtion:fly={{y: 50, duration: 500}}></div>
+    <div class="light"></div>
   {:else}
-    <div class="dark" transtion:fly={{y: 50, duration: 500}}></div>
+    <div class="dark"></div>
   {/if}
 </button>
 
