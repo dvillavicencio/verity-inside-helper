@@ -18,10 +18,16 @@ function toggleMenu() {
 
 <div class="side-menu" class:open={menuOpen}>
   <div class="menu-container">
-    <a href="/" on:click={toggleMenu}><div class="menu-option">Home</div></a>
-    <a href="/about" on:click={toggleMenu}><div class="menu-option">About</div></a> 
-    <a href="/settings" on:click={toggleMenu}></a><div class="menu-option">Settings</div>
-    <a href={githubLink} target="_blank" on:click={toggleMenu}><div class="menu-option">Source</div></a> 
+    <div class="nav-options">
+      <a href="/" on:click={toggleMenu}><div class="menu-option">Home</div></a>
+      <a href="/about" on:click={toggleMenu}><div class="menu-option">About</div></a> 
+      <a href={githubLink} target="_blank" on:click={toggleMenu}><div class="menu-option">Source</div></a> 
+    </div>
+    <div class="settings-options">
+      <div class="menu-option">
+        <input type="radio" />
+      </div>
+    </div>
   </div>
 </div>
 
@@ -47,6 +53,10 @@ path {
 .wrapper:hover {
   background-color: var(--hover-background-color);
   cursor: pointer;
+}
+
+.nav-options {
+  display: none;
 }
 
 .side-menu {
@@ -87,5 +97,9 @@ path {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  @media(min-width: 48rem) {
+      
   }
 </style>

@@ -4,12 +4,10 @@
   import HamburgerMenuButton from "../buttons/HamburgerMenuButton.svelte";
 </script>
 
-<header>
+<nav>
   <div class="wrapper">
-    <div class="container">
-      <a class="home" href="/">
-        <Logo /> 
-      </a>
+    <div class="container logo">
+      <a class="home" href="/"><Logo/></a>
     </div>
     <div class="container link-stack">
       <span class="container-element">
@@ -23,23 +21,24 @@
           Source
         </a>
       </span>
-    </div> 
+    </div>
     <div class="buttons">
       <HamburgerMenuButton />
       <ThemeButton />
     </div>
   </div>
-</header>
+</nav>
 
 <style>
-header {
+nav {
   background-color: var(--background-color);
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 3rem;
 }
 
-svg {
+a > svg {
   fill: var(--text-color);
 }
 
@@ -48,7 +47,7 @@ svg {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 0.5rem;
   gap: 0.5rem;
   width: 100%;
   max-width: 48rem;
@@ -91,10 +90,6 @@ svg {
   text-decoration: underline;
 }
 
-.github {
-  font-size: 16px;
-}
-
 @media(min-width: 48rem) {
   .wrapper {
     padding: 0.5rem 3rem;
@@ -105,6 +100,7 @@ svg {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .container-element {
@@ -112,7 +108,11 @@ svg {
   }
 
   .buttons {
-    flex: 1;
+    margin-left: auto;
+  }
+  
+  .logo {
+    margin-right: auto;
   }
 }
 </style>

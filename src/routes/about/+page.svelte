@@ -1,8 +1,4 @@
-<script>
-  import { fade } from "svelte/transition";
-</script>
-
-<div transition:fade class="text-container">
+<div class="text-container">
   <div class="first-section">
     <h1>What is this?</h1>
     <p class="about-description">
@@ -33,7 +29,6 @@
     <p>Yes, head over to settings and check the box for <b>less-verbose</b></p>
   </div>
 </div>
-
 <style>
   h1, h3, p, b, li{
     color: var(--text-color);

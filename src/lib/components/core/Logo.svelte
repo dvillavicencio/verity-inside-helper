@@ -31,20 +31,20 @@
   margin: 0.5rem;
   text-align: center;
   color: var(--text-color);
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .dark {
   width: 0;
   height: 0;
-  border-left: 0.625em solid transparent;
-  border-right: 0.625rem solid transparent;
-  border-bottom: 1.25rem solid var(--text-color);
+  border-left: 0.5em solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 1rem solid var(--text-color);
 }
 
 .light {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background-color: var(--outline-color);
 }

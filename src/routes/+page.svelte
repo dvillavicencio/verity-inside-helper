@@ -16,6 +16,6 @@ div:last-of-type {
 </style>
 
 <div class="main-container">
-  <Main on:reset={scrollToTop}/>
+  <Main on:reset={() => scrollToTop()}/>
 </div>
 

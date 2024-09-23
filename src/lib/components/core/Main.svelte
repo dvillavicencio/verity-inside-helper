@@ -3,7 +3,7 @@ import StatueLocationSelector from "./StatueLocationSelector.svelte";
 import StatueShapeSelector from "./StatueShapeSelector.svelte";
 import ShapeSelector from "./ShapeSelector.svelte";
 import RefreshButton from "../buttons/RefreshButton.svelte";
-import { fade } from "svelte/transition";
+import { fly } from "svelte/transition";
 import { Shape } from "../../Enums/Shape.ts";
 import { StatueLocation } from "../../Enums/StatueLocation.ts";
 import type { InputData } from "../../Types/InputData.ts";
@@ -26,6 +26,7 @@ let errorMessageVisible: boolean = false;
 let outputContainer;
 let inputContainer;
 let container;
+let homePage;
 
 function defineSteps(location: StatueLocation, statueShape: Shape, shapes: Shape[]): string[] {
   let doubled: boolean = shapes[0] === shapes[1];
@@ -55,7 +56,7 @@ function defineSteps(location: StatueLocation, statueShape: Shape, shapes: Shape
       `<b>DEPOSIT</b> <b>${statueShape}</b> on <b>${otherLocations[1]}</b>`,
       `Up in the wall you should have ONLY one <b>${otherShapes[0]}</b> and one <b>${otherShapes[1]}</b>`,
       `<b>KILL</b> knights and ogres and pick up both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b> at the same time`,
-      `If done correctly, you should not be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
+      `If done correctly, you should be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
       `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`
     ];
   }
@@ -147,12 +148,7 @@ function reset() {
 }
 
 function outputTransition(node) {
-  let viewportWidth = window.innerWidth;
-  if(viewportWidth > 800) {
-    return fly(node, {x: 50, duration: 500});
-  } else {
-    return fly(node, {y: -50, duration: 500});
-  }
+  return fly(node, {y: -50, duration: 500});
 }
 
 function scrollToOutput() {
@@ -174,7 +170,7 @@ $: if(outputContainer && window.innerWidth <= 800) {
 }
 </script>
 
-<main transition:fade bind:this={container}> 
+<main bind:this={container}> 
   <div class="input-container" bind:this={inputContainer}>
     {#if errorMessageVisible}
       <div class="error-container" transition:outputTransition>
@@ -189,7 +185,7 @@ $: if(outputContainer && window.innerWidth <= 800) {
     <ShapeSelector on:shapes={setShapes} {resetEnabled}/>
   </div>
   {#if outputVisible}
-    <div class="output-container" bind:this={outputContainer} transition:outputTransition> 
+    <div class="output-container" bind:this={outputContainer} transition:fly={{y: -50, duration: 500}}> 
       <h3 class="title">Steps:</h3>
       {#each defineSteps(statueLocation, statueShape, shapes) as step, i}
         <p class="list-item">{++i}. {@html step}</p> 
@@ -205,6 +201,7 @@ $: if(outputContainer && window.innerWidth <= 800) {
 main {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: var(--background-color);
   gap: 2rem;
 }
@@ -225,8 +222,9 @@ main {
   align-content: start;
   justify-content: flex-start;
   flex-wrap: wrap;
+  max-width: 32rem;
   background-color: var(--background-color);
-  margin: 0rem 3rem;
+  padding: 0 1.25rem;
 }
 
 .error-container {
@@ -253,9 +251,10 @@ main {
   color: var(--text-color);
 }
 
-@media(min-width: 50em) {
+@media(min-width: 48em) {
   main {
     flex-direction: row;
+    align-items: start;
     justify-content: center;
   }
 }

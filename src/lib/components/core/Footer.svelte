@@ -6,8 +6,7 @@
 footer {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  margin-top: 0;
-  margin-bottom: 0px;
+  margin-top: auto;
   background-color: var(--background-color);
 }
 
