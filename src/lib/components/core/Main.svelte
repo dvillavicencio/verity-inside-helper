@@ -3,7 +3,7 @@ import StatueLocationSelector from "./StatueLocationSelector.svelte";
 import StatueShapeSelector from "./StatueShapeSelector.svelte";
 import ShapeSelector from "./ShapeSelector.svelte";
 import RefreshButton from "../buttons/RefreshButton.svelte";
-import { fly } from "svelte/transition";
+import { fade } from "svelte/transition";
 import { Shape } from "../../Enums/Shape.ts";
 import { StatueLocation } from "../../Enums/StatueLocation.ts";
 import type { InputData } from "../../Types/InputData.ts";
@@ -148,7 +148,7 @@ function reset() {
 
 function outputTransition(node) {
   let viewportWidth = window.innerWidth;
-  if(viewportWidth > 480) {
+  if(viewportWidth > 800) {
     return fly(node, {x: 50, duration: 500});
   } else {
     return fly(node, {y: -50, duration: 500});
@@ -169,12 +169,12 @@ function errorMessageDescription(shapes: Shape[]): string {
   }
 }
 
-$: if(outputContainer && window.innerWidth <= 480) {
+$: if(outputContainer && window.innerWidth <= 800) {
   scrollToOutput();
 }
 </script>
 
-<main bind:this={container}> 
+<main transition:fade bind:this={container}> 
   <div class="input-container" bind:this={inputContainer}>
     {#if errorMessageVisible}
       <div class="error-container" transition:outputTransition>
@@ -206,7 +206,6 @@ main {
   display: flex;
   flex-direction: column;
   background-color: var(--background-color);
-  transition: background-color 0.5s ease;
   gap: 2rem;
 }
 
@@ -215,8 +214,6 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: var(--background-color);
-  transition: background-color 0.5s ease;
   gap: 1rem;
 }
 
@@ -229,7 +226,6 @@ main {
   justify-content: flex-start;
   flex-wrap: wrap;
   background-color: var(--background-color);
-  transition: background-color 0.5s ease;
   margin: 0rem 3rem;
 }
 
@@ -238,6 +234,8 @@ main {
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  margin: 0.25rem;
+  padding: 0 .5rem;
 }
 
 .error-message {
@@ -259,10 +257,6 @@ main {
   main {
     flex-direction: row;
     justify-content: center;
-  }
-
-  output-container {
-    margin: 2rem;
   }
 }
 </style>

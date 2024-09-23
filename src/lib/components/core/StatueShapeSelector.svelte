@@ -50,6 +50,5 @@
   }
   p {
     color: var(--text-color);
-    transition: color 0.3s ease;
   }
 </style>

@@ -9,7 +9,6 @@ footer {
   margin-top: 0;
   margin-bottom: 0px;
   background-color: var(--background-color);
-  transition: background-color 0.5s ease;
 }
 
 .madeBy {

@@ -25,6 +25,7 @@ svg {
   -moz-user-select: none;
   user-select: none;
 }
+
 .button-container:active {
   cursor: pointer;
   transform: scale(1.1);

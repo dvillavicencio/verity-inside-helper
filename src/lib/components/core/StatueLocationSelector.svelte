@@ -43,7 +43,6 @@ fieldset {
 
 label {
   color: var(--text-color);
-  transitiion: color 0.3s ease;
 }
 
 label {
@@ -52,7 +51,6 @@ label {
 
 p {
   color: var(--text-color);
-  transition: color 0.3s ease;
 }
 </style>
 <div class="container">

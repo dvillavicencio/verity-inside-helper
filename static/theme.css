@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=pt+sans:ital,wght@0,400;0,700;1,400;1,700&family=quicksand:wght@300..700&display=swap');
 :root {
+  font-family: "PT-Sans", sans-serif; 
   --background-color: #F1F2F4;
   --outline-color: #101214;
   --text-color: #101214;
@@ -19,5 +21,5 @@
 }
 
 * {
-  transition: background-color 0.5s ease, color 0.5s ease, bottom-border-color 0.5s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, bottom-border-color 0.3s ease, fill 0.3s ease;
 }
