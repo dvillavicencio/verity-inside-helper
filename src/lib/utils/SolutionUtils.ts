@@ -16,7 +16,7 @@ export function defineFastStrategySteps(statueLocation: StatueLocation, statueSh
       `<b>DEPOSIT</b> the shape on the statue holding a <b>${depositStatueShape}</b>`,
       `<b>KILL</b> the other knight`,
       `<b>DEPOSIT</b> the shape again on the statue holding a <b>${depositStatueShape}</b>`,
-      `If all players did the strategy correctly, you should now have a <b>${otherShapes[0]}</b> and a <b>${otherShapes[0]}</b> up on your wall`,
+      `If all players did the strategy correctly, you should now have a <b>${otherShapes[0]}</b> and a <b>${otherShapes[1]}</b> up on your wall`,
       `<b>KILL</b> the ogre and both knights and <b>PICK</b> both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b>`,
       `If done correctly you should now be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
       `Once dissection outside is finished, <b>ESCAPE</b> through the crystall wall at the back of the room`
