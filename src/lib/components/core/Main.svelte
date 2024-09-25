@@ -10,7 +10,7 @@ import { StatueLocation } from "../../Enums/StatueLocation.ts";
 import { DoubledPlayers } from "../../Enums/DoubledPlayers.ts";
 import { toggleStore } from "../stores/ToggleStore.ts";
 import { createEventDispatcher } from "svelte";
-import * as shapes from "../../utils/ShapeUtils.ts";
+import * as shapeUtils from "../../utils/ShapeUtils.ts";
 import * as solutions from "../../utils/SolutionUtils.ts";
 
 const RESET_EVENT: String = "reset";
@@ -116,7 +116,7 @@ function errorMessageDescription(shapes: Shape[]): string {
   if(shapes[0] === shapes[1]) {
     return `you can never start with double ${shapes[0]}s on your wall`;
   } else {
-    return `you can never start with ${shapes.getOtherShapes(statueShape)[0]} and ${shapes.getOtherShapes(statueShape)[1]} on your wall`;
+    return `you can never start with ${shapeUtils.getOtherShapes(statueShape)[0]} and ${shapeUtils.getOtherShapes(statueShape)[1]} on your wall`;
   }
 }
 
