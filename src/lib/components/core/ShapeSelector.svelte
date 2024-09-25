@@ -73,7 +73,7 @@
 .shape-container {
   display: flex;
   gap: clamp(16px, 5vw, 32px); 
-  marign: 1vw;
+  margin: 1vw;
 }
 
 .checkbox-container {
@@ -85,12 +85,10 @@
 
 p {
   color: var(--text-color);
-  transition: color 0.3s ease;
 } 
 
 label {
   color: var(--text-color);
-  transtion: color 0.3s ease;
 }
 </style>
 
