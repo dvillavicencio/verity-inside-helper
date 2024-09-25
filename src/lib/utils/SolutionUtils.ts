@@ -19,7 +19,7 @@ export function defineFastStrategySteps(statueLocation: StatueLocation, statueSh
       `If all players did the strategy correctly, you should now have a <b>${otherShapes[0]}</b> and a <b>${otherShapes[1]}</b> up on your wall`,
       `<b>KILL</b> the ogre and both knights and <b>PICK</b> both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b>`,
       `If done correctly you should now be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
-      `Once dissection outside is finished, <b>ESCAPE</b> through the crystall wall at the back of the room`
+      `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`
     ];
   } else if (playersDoubled == DoubledPlayers.One) {
     const complimentShape = shapes.find(s => s !== statueShape);
@@ -33,7 +33,7 @@ export function defineFastStrategySteps(statueLocation: StatueLocation, statueSh
       `If all players did the strategy correctly, you should now have a <b>${otherShapes[0]}</b> and a <b>${otherShapes[1]}</b> up on your wall`,
       `<b>KILL</b> the ogres and both knights and pick up both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b>`,
       `If done correctly you should now be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
-      `Once dissection outside is finished, <b>ESCAPE</b> through the crystall wall at the back of the room`] :
+      `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`] :
       [`There's only one player with doubled shapes, you however do not have matching shapes`,
         `<b>KILL</b> a knight`,
         `If the shape the knight dropped is a <b>${complimentShape}</b>, <b>DEPOSIT</b> the <b>${complimentShape}</b> on the statue holding a <b>${complimentStatueShape}</b>`,
@@ -41,7 +41,7 @@ export function defineFastStrategySteps(statueLocation: StatueLocation, statueSh
         `If all players did the strategy correctly, you should now have a <b>${otherShapes[0]}</b> and a <b>${otherShapes[1]}</b> up on your wall`,
         `<b>KILL</b> the ogre and both knights and <b>PICK</b> both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b>`,
         `If done correctly you should now be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
-        `Once dissection outside is finished, <b>ESCAPE</b> through the crystall wall at the back of the room`]
+        `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`]
   } else {
     return [
       `All players have doubled shapes! This means you will do the normal strategy for doubled shapes`,
