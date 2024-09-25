@@ -14,7 +14,7 @@
   
   function selectStatue(position: StatueLocation) {
     selectedLocation = position;
-    dispatch("statueSelect", position);
+    dispatch(DISPATCH_EVENT_NAME, position);
   }
 
   $: if(resetEnabled === false) {

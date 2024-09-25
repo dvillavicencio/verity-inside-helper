@@ -3,12 +3,15 @@ import StatueLocationSelector from "./StatueLocationSelector.svelte";
 import StatueShapeSelector from "./StatueShapeSelector.svelte";
 import ShapeSelector from "./ShapeSelector.svelte";
 import RefreshButton from "../buttons/RefreshButton.svelte";
+import PlayersDoubleShapesSelector from "./PlayersDoubleShapesSelector.svelte";
 import { fly } from "svelte/transition";
 import { Shape } from "../../Enums/Shape.ts";
 import { StatueLocation } from "../../Enums/StatueLocation.ts";
-import type { InputData } from "../../Types/InputData.ts";
-
-import { createEventDispatcher, tick, onMount } from "svelte";
+import { DoubledPlayers } from "../../Enums/DoubledPlayers.ts";
+import { toggleStore } from "../stores/ToggleStore.ts";
+import { createEventDispatcher } from "svelte";
+import * as shapes from "../../utils/ShapeUtils.ts";
+import * as solutions from "../../utils/SolutionUtils.ts";
 
 const RESET_EVENT: String = "reset";
 
@@ -17,64 +20,47 @@ const dispatch = createEventDispatcher();
 let shapes: Shape[] = [];
 let statueShape: Shape = null;
 let statueLocation: StatueLocation = null;
+let playersDoubled: DoubledPlayers = null;
 
 let resetEnabled: boolean = false;
 let outputVisible: boolean = false;
-let inputIsValid: boolean = true;
+let validShapes: boolean = true;
 let errorMessageVisible: boolean = false;
+let fastStrategy: boolean = false;
 
 let outputContainer;
 let inputContainer;
 let container;
 let homePage;
 
-function defineSteps(location: StatueLocation, statueShape: Shape, shapes: Shape[]): string[] {
-  let doubled: boolean = shapes[0] === shapes[1];
-  const otherLocations: StatueLocation[] = getOtherLocations(location);
-  const otherShapes: Shape[] = getOtherShapes(statueShape);
-  const resultingShape: Shape = getResultingShape(statueShape);
-  if(!doubled) {
-    const value = shapes.find(s => s !== statueShape);
-    return [`<b>KILL</b> a knight until it drops a <b>${value}</b>`, 
-      `<b>DEPOSIT</b> the <b>${value}</b> on the statue holding a <b>${value}</b>`,
-      `<b>WAIT</b> until the other two guardians have double shapes as well`,
-      `<b>KILL</b> another knight and <b>DEPOSIT</b> the <b>${statueShape}</b> on <b>${otherLocations[0]}</b>`,
-      `<b>KILL</b> an ogre if there is one`,
-      `<b>KILL</b> a knight until it drops a second <b>${statueShape}</b>`,
-      `<b>DEPOSIT</b> the <b>${statueShape}</b> on <b>${otherLocations[1]}</b>`,
-      `Up in the wall you should have <b>ONLY</b> one <b>${otherShapes[0]}</b> and one <b>${otherShapes[1]}</b>`,
-      `<b>KILL</b> knights and ogres and pick up both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b>`,
-      `If done correctly, you should now be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
-      `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`
-    ]; 
-  } else {
-    return [
-      `<b>WAIT</b> until the other two guardians have double shapes`,
-      `<b>KILL</b> a knight and <b>PICK</b> a <b>${statueShape}</b>`,
-      `<b>DEPOSIT</b> <b>${statueShape}</b> on <b>${otherLocations[0]}</b>`,
-      `<b>KILL</b> another knight until it drops a <b>${statueShape}</b>`,
-      `<b>DEPOSIT</b> <b>${statueShape}</b> on <b>${otherLocations[1]}</b>`,
-      `Up in the wall you should have ONLY one <b>${otherShapes[0]}</b> and one <b>${otherShapes[1]}</b>`,
-      `<b>KILL</b> knights and ogres and pick up both <b>${otherShapes[0]}</b> and <b>${otherShapes[1]}</b> at the same time`,
-      `If done correctly, you should be holding a <b>${resultingShape}</b> (${otherShapes[0]} + ${otherShapes[1]})`,
-      `Once dissection outside is finished, <b>ESCAPE</b> through the crystal wall at the back of the room`
-    ];
-  }
-} 
+$: toggleStore.subscribe(value => fastStrategy = value);
 
 function validateAndUpdateOutput() {
-  inputIsValid = validateInput(statueShape, shapes);
-  let params = statueLocation !== null && statueShape !== null && shapes.length == 2;
-  if(params && inputIsValid) {
-    outputVisible = true;
-    errorMessageVisible = false;
-  } else if(params && !inputIsValid) {
-    outputVisible = false;
-    errorMessageVisible = true;
+  if(fastStrategy) {
+    validShapes = validateShapes(statueShape, shapes);
+    let params = statueLocation !== null && statueShape !== null && playersDoubled !== null && shapes.length == 2;
+    if(params && validShapes) {
+      outputVisible = true;
+      errorMessageVisible = false;
+    } else if(params && !validShapes) {
+      outputVisible = false;
+      errorMessageVisible = true;
+    }
+  } else {
+    validShapes = validateShapes(statueShape, shapes);
+    let params = statueLocation !== null && statueShape !== null && shapes.length == 2;
+    if(params && validShapes) {
+      outputVisible = true;
+      errorMessageVisible = false;
+    } else if(params && !validShapes) {
+      outputVisible = false;
+      errorMessageVisible = true;
+    }
   }
+  
 }
 
-function validateInput(statueShape: Shape, shapesHeld: Shape[]): boolean {
+function validateShapes(statueShape: Shape, shapesHeld: Shape[]): boolean {
   let valid = shapesHeld.filter(item => item === statueShape);
   return statueShape !== null && shapesHeld.length > 0 && valid.length != 0;
 }
@@ -97,52 +83,21 @@ function setShapes(event) {
   validateAndUpdateOutput(); 
 }
 
-function getOtherShapes(shape: Shape): Shape[]{
-    switch(shape) {
-      case Shape.Triangle:
-        return [Shape.Circle, Shape.Square];
-      case Shape.Square:
-        return [Shape.Circle, Shape.Triangle];
-      case Shape.Circle:
-        return [Shape.Square, Shape.Triangle];
-      default: 
-        throw new Error('Invalid shape');
-    }
-  }
-
-function getResultingShape(shape: StatueShape): Shape {
-  switch(shape) {
-    case Shape.Triangle:
-      return Shape.Cylinder;
-    case Shape.Square:
-      return Shape.Cone;
-    case Shape.Circle:
-      return Shape.Prism;
-    default:
-      return new Error("Shape passed is not a 2D shape");
-  }
-}
-
-function getOtherLocations(currentLocation: StatueLocation): StatueLocation[] {
-  switch(currentLocation) {
-    case StatueLocation.Left:
-      return [StatueLocation.Mid, StatueLocation.Right];
-    case StatueLocation.Mid:
-      return [StatueLocation.Left, StatueLocation.Right];
-    case StatueLocation.Right:
-      return [StatueLocation.Left, StatueLocation.Mid];
-    default:
-      throw new Error('Invalid location');
-  }
+function setPlayersDoubledShapes(event) {
+  playersDoubled = event.detail; 
+  resetEnabled = true;
+  validateAndUpdateOutput();
 }
 
 function reset() {
-  inputIsValid = true;
+  validShapes = true;
   resetEnabled = false;
   outputVisible = false;
   errorMessageVisible = false;
   statueLocation = null;
   statueShape = null;
+  playersDoubled = null;
+
   shapes = [];
   dispatch(RESET_EVENT);
 }
@@ -161,7 +116,7 @@ function errorMessageDescription(shapes: Shape[]): string {
   if(shapes[0] === shapes[1]) {
     return `you can never start with double ${shapes[0]}s on your wall`;
   } else {
-    return `you can never start with ${getOtherShapes(statueShape)[0]} and ${getOtherShapes(statueShape)[1]} on your wall`;
+    return `you can never start with ${shapes.getOtherShapes(statueShape)[0]} and ${shapes.getOtherShapes(statueShape)[1]} on your wall`;
   }
 }
 
@@ -183,13 +138,28 @@ $: if(outputContainer && window.innerWidth <= 800) {
     <StatueLocationSelector on:statueSelect={setLocation} {resetEnabled}/>
     <StatueShapeSelector on:selectShape={setStatueShape} {resetEnabled}/>
     <ShapeSelector on:shapes={setShapes} {resetEnabled}/>
+    {#if fastStrategy}
+      <PlayersDoubleShapesSelector on:doubledPlayers={setPlayersDoubledShapes} {resetEnabled}/>
+    {/if}
   </div>
   {#if outputVisible}
     <div class="output-container" bind:this={outputContainer} transition:fly={{y: -50, duration: 500}}> 
-      <h3 class="title">Steps:</h3>
-      {#each defineSteps(statueLocation, statueShape, shapes) as step, i}
-        <p class="list-item">{++i}. {@html step}</p> 
-      {/each} 
+      <h3 class="title">Steps for {fastStrategy ? "Fast Strategy" : "Normal/LFG Strategy"}</h3>
+      <ul>
+        {#if fastStrategy}
+          {#each solutions.defineFastStrategySteps(statueLocation, statueShape, shapes, playersDoubled) as step, i}
+            {#if i == 0}
+              <p class="list-item">{@html step}</p>
+            {:else}
+              <li class="list-item">{@html step}</li>
+            {/if}
+          {/each}
+        {:else}
+          {#each solutions.defineNormalSteps(statueLocation, statueShape, shapes) as step, i}
+            <li class="list-item">{@html step}</li>
+          {/each} 
+        {/if}
+      </ul>
     </div>
   {/if}
 </main>
@@ -206,6 +176,15 @@ main {
   gap: 2rem;
 }
 
+li {
+  margin: 1rem 0;
+}
+
+ul {
+  margin: 0;
+  max-width: 20rem;
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
@@ -217,7 +196,7 @@ main {
 .output-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.25rem;
   align-items: start;
   align-content: start;
   justify-content: flex-start;

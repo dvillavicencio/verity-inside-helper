@@ -22,11 +22,7 @@
       If you and your other fireteam members able to answer those three questions then you are on the right track!
     </p>
     <h3>> Can this explain challenge mode?</h3>
-    <p>No.</p>
-    <h3>> Can this explain the Fast Strategy?</h3>
-    <p>Yes, head over to settings and check the box for <b>fast strategy</b>.</p>
-    <h3>> Can I reduce the amount of words per step?</h3>
-    <p>Yes, head over to settings and check the box for <b>less-verbose</b></p>
+    <p>Not yet</p>
   </div>
 </div>
 <style>

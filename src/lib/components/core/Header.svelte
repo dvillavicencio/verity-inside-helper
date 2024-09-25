@@ -1,7 +1,7 @@
 <script lang="ts">
   import Logo from "./Logo.svelte";
   import ThemeButton from "../buttons/ThemeButton.svelte";
-  import HamburgerMenuButton from "../buttons/HamburgerMenuButton.svelte";
+  import SideMenu from "../buttons/SideMenu.svelte";
 </script>
 
 <nav>
@@ -23,7 +23,7 @@
       </span>
     </div>
     <div class="buttons">
-      <HamburgerMenuButton />
+      <SideMenu />
       <ThemeButton />
     </div>
   </div>

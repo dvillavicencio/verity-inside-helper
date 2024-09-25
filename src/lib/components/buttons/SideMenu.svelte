@@ -1,6 +1,7 @@
 <script lang="ts">
-let menuOpen: boolean = false;
+import FastStratToggle from "./FastStratToggle.svelte";
 
+let menuOpen: boolean = false;
 const githubLink: string = "https://github.com/dvillavicencio/verity-inside-helper";
 
 function toggleMenu() {
@@ -25,7 +26,7 @@ function toggleMenu() {
     </div>
     <div class="settings-options">
       <div class="menu-option">
-        <input type="radio" />
+        <FastStratToggle />
       </div>
     </div>
   </div>
@@ -56,9 +57,11 @@ path {
 }
 
 .nav-options {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
 }
-
 .side-menu {
     position: fixed;
     top: 0;
@@ -97,9 +100,12 @@ path {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
 
   @media(min-width: 48rem) {
-      
+    .nav-options {
+       display: none; 
+    } 
   }
 </style>
