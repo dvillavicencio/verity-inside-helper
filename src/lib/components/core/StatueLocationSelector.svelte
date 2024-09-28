@@ -1,5 +1,6 @@
 <script lang="ts">
   import { StatueLocation } from "../../Enums/StatueLocation.ts";
+  import { ArrowLeft, ArrowRight, Dot } from "lucide-svelte";
   import { createEventDispatcher } from "svelte";
 
   const DISPATCH_EVENT_NAME: String = "statueSelect"; 
@@ -12,24 +13,49 @@
     DISPATCH_EVENT_NAME: StatueLocation;
   }>();
   
-  function selectStatue(position: StatueLocation) {
-    selectedLocation = position;
-    dispatch(DISPATCH_EVENT_NAME, position);
+  function selectStatue(selected: StatueLocation) {
+    selectedLocation = selectedLocation === selected ? null : selected;
+    dispatch(DISPATCH_EVENT_NAME, selectedLocation);
   }
 
   $: if(resetEnabled === false) {
     selectedLocation = null;
-  } 
+  };
+
+  const sides = [
+    {
+      value: StatueLocation.Left,
+      label: 'Left',
+      icon: ArrowLeft
+    },
+    {
+      value: StatueLocation.Mid,
+      label: 'Mid',
+      icon: Dot
+    },
+    {
+      value: StatueLocation.Right,
+      label: 'Right',
+      icon: ArrowRight
+    }
+  ] 
 </script>
 
-<style>
-.button-container {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  gap: clamp(24px, 5vw, 32px);
-}
+<div class="container">
+  <h3>Where is your statue?</h3>
+  <div class="side-options">
+    {#each sides as side}
+        <label 
+          class:selected={selectedLocation === side.value}
+          on:click={() => selectStatue(side.value)}> 
+          <svelte:component this={side.icon} />
+          <span>{side.label}</span>
+        </label>
+      {/each}
+  </div>
+</div>
 
+<style>
 .container {
   display: flex;
   align-items: center;
@@ -37,45 +63,58 @@
   flex-direction: column;
 }
 
-fieldset {
-  border: transparent;
+.side-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(1rem, 1.5rem, 2rem);
+}
+
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  border: 2px solid var(--outline-color);
+  border-radius: 0.5rem;
+  background-color: var(--background-color);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.selected {
+  border-color: var(--selected-color);
+}
+
+label :global(svg) {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+  stroke: var(--outline-color);
+}
+
+span {
+  font-size: 1rem;
   color: var(--text-color);
 }
 
-label {
-  margin: 1vw;
+h3 {
+  color: var(--text-color);
 }
 
-p {
-  color: var(--text-color);
+@media(hover: hover) and (pointer: fine) {
+  label:hover {
+    background-color: var(--hover-background-color);
+  }
 }
 </style>
-<div class="container">
-  <p>Where is your statue?</p>
-  <fieldset>
-    <div class="button-container">
-      <div>
-        <input type="radio" id="left" name="statueLocation" 
-          on:click={() => selectStatue(StatueLocation.Left)}
-          bind:group={selectedLocation} value={StatueLocation.Left}/> 
-        <label for="left">Left</label>
-      </div>
-      <div>
-        <input type="radio" id="mid" name="statueLocation"
-          on:click={() => selectStatue(StatueLocation.Mid)}
-          bind:group={selectedLocation} value={StatueLocation.Mid}/>
-        <label for="mid">Mid</label>
-      </div> 
-      <div>
-        <input type="radio" id="right" name="statueLocation"
-          on:click={() => selectStatue(StatueLocation.Right)}
-          bind:group={selectedLocation} value={StatueLocation.Right}/> 
-        <label for="right">Right</label>                       
-      </div> 
-    </div>
-  </fieldset>
-</div>
 

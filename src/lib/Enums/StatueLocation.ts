@@ -1,5 +1,5 @@
 export const enum StatueLocation {
-  Left = "LEFT",
-  Mid = "MID",
-  Right = "RIGHT"
+  Left = "Left",
+  Mid = "Mid",
+  Right = "Right"
 }

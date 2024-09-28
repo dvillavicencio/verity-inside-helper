@@ -11,7 +11,7 @@
     selectShape: Shape;
   }>();
 
-  function handleClick(shape: Shape) {
+  function selectShape(shape: Shape) {
     if(selectedShape === shape) {
       selectedShape = null;
     } else {
@@ -26,29 +26,29 @@
 </script>
 
 <div class="container">
-  <p>What shape is your statue holding?</p>
+  <h3>What shape is your statue holding?</h3>
   <div class="shape-container">
-    <GenericShape isClicked={selectedShape === Shape.Triangle} on:select={() => handleClick(Shape.Triangle)} shapeType={Shape.Triangle} />
-    <GenericShape isClicked={selectedShape === Shape.Circle} on:select={() => handleClick(Shape.Circle)} shapeType={Shape.Circle} />
-    <GenericShape isClicked={selectedShape === Shape.Square} on:select={() => handleClick(Shape.Square)} shapeType={Shape.Square} />
+    <GenericShape id="statueShapeTriangle" isClicked={selectedShape === Shape.Triangle} on:select={() => selectShape(Shape.Triangle)} shapeType={Shape.Triangle} />
+    <GenericShape id="statueShapeCircle" isClicked={selectedShape === Shape.Circle} on:select={() => selectShape(Shape.Circle)} shapeType={Shape.Circle} />
+    <GenericShape id="statueShapeSquare" isClicked={selectedShape === Shape.Square} on:select={() => selectShape(Shape.Square)} shapeType={Shape.Square} />
   </div>
 </div>
 
 <style>
   .container {
+    max-width: 20rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 1vw;
-    gap: 1vw
   }
   .shape-container {
     display: flex;
-    gap: clamp(16px, 5vw, 32px);
+    gap: clamp(1rem, 1.5rem, 2rem);
   }
-  p {
+
+  h3 {
     color: var(--text-color);
   }
 </style>

@@ -1,40 +1,44 @@
 <script lang="ts">
-import FastStratToggle from "./FastStratToggle.svelte";
+import FastStratToggle from "../buttons/FastStratToggle.svelte";
+import { X } from "lucide-svelte";
+import { fly, fade } from "svelte/transition";
+import { quintOut } from "svelte/easing";
 
-let menuOpen: boolean = false;
+export let menuOpen: boolean = false;
+
 const githubLink: string = "https://github.com/dvillavicencio/verity-inside-helper";
 
-function toggleMenu() {
-  menuOpen = !menuOpen;
+function closeMenu() {
+  menuOpen = false;
 }
 </script>
 
-<span class="wrapper" on:click={toggleMenu}>
-  <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 18L20 18" stroke-width="2" stroke-linecap="round"/>
-    <path d="M4 12L20 12" stroke-width="2" stroke-linecap="round"/>
-    <path d="M4 6L20 6" stroke-width="2" stroke-linecap="round"/>
-  </svg>
-</span>
-
-<div class="side-menu" class:open={menuOpen}>
-  <div class="menu-container">
-    <div class="nav-options">
-      <a href="/" on:click={toggleMenu}><div class="menu-option">Home</div></a>
-      <a href="/about" on:click={toggleMenu}><div class="menu-option">About</div></a> 
-      <a href={githubLink} target="_blank" on:click={toggleMenu}><div class="menu-option">Source</div></a> 
-    </div>
-    <div class="settings-options">
-      <div class="menu-option">
-        <FastStratToggle />
+<div class="side-menu-container">
+  {#if menuOpen}
+    <div class="side-menu" transition:fly={{x: 128, duration: 300, easing: quintOut}}>
+      <div class="menu-container">
+        <button class="close-button" on:click={closeMenu} aria-label="Close menu">
+          <X size={24} />
+        </button>
+        <div class="nav-options">
+          <a href="/" on:click={closeMenu}><div class="menu-option">Home</div></a>
+          <a href="/about" on:click={closeMenu}><div class="menu-option">About</div></a> 
+          <a href={githubLink} target="_blank" on:click={closeMenu}><div class="menu-option">Source</div></a> 
+        </div>
+        <div class="fast-strat">
+          <span>Fast Strategy</span>
+          <FastStratToggle />
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="menu-overlay"
+      on:click={closeMenu}
+      transition:fade={{duration: 200}}>
+    </div>
+  {/if}
 </div>
 
-{#if menuOpen}
-  <div class="menu-overlay" on:click={toggleMenu}></div>
-{/if}
 
 <style>
 a, a:visited {
@@ -45,15 +49,24 @@ path {
   stroke: var(--text-color);
 }
 
-.wrapper {
-  height: 1rem;
-  width: 1rem;
-  padding: 0.5rem;
+.close-button {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
 }
 
-.wrapper:hover {
-  background-color: var(--hover-background-color);
-  cursor: pointer;
+.fast-strat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.fast-strat span {
+  color: var(--text-color);
 }
 
 .nav-options {
@@ -62,50 +75,57 @@ path {
   gap: 0.5rem;
   align-items: center;
 }
+
 .side-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 8rem;
-    background-color: var(--background-color);
-    color: white;
-    padding: 1rem;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    z-index: 3;
-  }
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 8rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 1rem;
+  pointer-events: auto;
+  z-index: 1001;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
 
-  .side-menu.open {
-    transform: translateX(0);
-  }
+.side-menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
 
-  .menu-option {
-    margin: 1rem 0;
-    font-size: 1rem;
-    cursor: pointer;
-    color: var(--text-color);
-  }
+.menu-option {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
 
-  .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.5);
+}
 
-  .menu-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  @media(min-width: 48rem) {
-    .nav-options {
-       display: none; 
-    } 
-  }
+@media(min-width: 48rem) {
+  .side-menu-container {
+    display: none; 
+  } 
+}
 </style>

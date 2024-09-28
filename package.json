@@ -30,6 +30,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"lucide-svelte": "^0.446.0",
+		"svelte-dnd-action": "^0.9.50",
 		"svelte-switch": "^0.0.5"
 	}
 }

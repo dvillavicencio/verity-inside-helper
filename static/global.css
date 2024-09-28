@@ -4,20 +4,30 @@
   --background-color: #F1F2F4;
   --outline-color: #101214;
   --text-color: #101214;
+  --text-secondary-color: #b1b1b1;
   --hover-background-color: #EFF6FF;
   --hover-stroke-color: #2D68FE;
   --active-color: #cfe4ff;
   --selected-color: #2D68FE;
+  --slider-color: #ccc;
+  --disabled-background-color: #f0f0f0;
+  --disabled-outline-color: #d0d0d0;
+  --disabled-text-color: #999;
 }
 
 :root[theme="darkmode"] {
   --background-color: #22272B;
   --outline-color: #B6C2CF;
   --text-color: #DEE4EA;
+  --text-secondary-color: #565656;
   --hover-background-color: #282E33;
   --hover-stroke-color: #2D68FE;
   --active-color: #38414A;
   --selected-color: #2D68FE;
+  --slider-color: #2b2b2b;
+  --disabled-background-color: #3d3d3d; 
+  --disabled-outline-color: #333;
+  --disabled-text-color: #666;
 }
 
 * {
