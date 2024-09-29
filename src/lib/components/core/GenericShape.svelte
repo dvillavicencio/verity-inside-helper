@@ -4,15 +4,7 @@
   import { createEventDispatcher } from "svelte";
 
   export let isClicked: boolean = false;
-  export let shapeType: Shape = null;
-  export let id;
-
-  const dispatch = createEventDispatcher();
-
-  function handleClick() {
-    isClicked = !isClicked;
-    dispatch('select')
-  }
+  export let shapeType: Shape;
 
   const shapes = {
     [Shape.Square]: {
@@ -33,19 +25,14 @@
   }
 </script>
 
-<div class="shape-option" on:click={handleClick}>
-  <input
-    type="radio"
-    id={id}
-    value={shapes[shapeType].value}
-  />
-  <label
-    for={id}
-    class:selected={isClicked}
-    on:click={handleClick}>
+<div class="shape-option" aria-label="Shape options">
+    <div class="card"
+      aria-label={`${shapes[shapeType].label}`}
+      class:selected={isClicked}
+      on:click>
     <svelte:component this={shapes[shapeType].icon} />
     <span>{shapes[shapeType].label}</span>
-  </label> 
+  </div> 
 </div>
 
 <style>
@@ -55,14 +42,7 @@
     align-items: center;
   }
 
-  input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  label {
+  .card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +60,7 @@
     border-color: var(--selected-color);
   }
 
-  label :global(svg) {
+  .card :global(svg) {
     width: 2rem;
     height: 2rem;
     margin-bottom: 0.5rem;
@@ -93,7 +73,7 @@
   }
 
   @media(hover: hover) and (pointer: fine) {
-    label:hover {
+    .card:hover {
       background-color: var(--hover-background-color);
     }
   }

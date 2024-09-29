@@ -44,7 +44,7 @@
 </button>
 
 <style>
-.theme-toggle, .menu-toggle {
+.theme-toggle {
   background: none;
   border: none;
   cursor: pointer;

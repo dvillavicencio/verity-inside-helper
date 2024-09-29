@@ -1,9 +1,12 @@
 <script lang="ts">
   import Footer from "$lib/components/core/Footer.svelte";
   import Header from "$lib/components/core/Header.svelte";
+  import { dev } from "$app/environment";
+  import { inject } from "@vercel/analytics";
   import { fly } from "svelte/transition";
 
   export let data;
+  inject({ mode: dev ? 'development' : 'production'})
 </script>
 
 <Header />

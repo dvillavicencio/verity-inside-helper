@@ -143,12 +143,6 @@
     align-items: center;
   }
 
-  .selection-count {
-    color: var(--text-color);
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-
   @media(hover: hover) and (pointer: fine) {
     .shape-button:hover {
       background-color: var(--hover-background-color);

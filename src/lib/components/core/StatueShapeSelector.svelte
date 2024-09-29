@@ -20,6 +20,8 @@
     }
   }
 
+  const shapes = [ Shape.Triangle, Shape.Circle, Shape.Square ];
+
   $: if(resetEnabled === false) {
     selectedShape = null;
   }
@@ -28,9 +30,12 @@
 <div class="container">
   <h3>What shape is your statue holding?</h3>
   <div class="shape-container">
-    <GenericShape id="statueShapeTriangle" isClicked={selectedShape === Shape.Triangle} on:select={() => selectShape(Shape.Triangle)} shapeType={Shape.Triangle} />
-    <GenericShape id="statueShapeCircle" isClicked={selectedShape === Shape.Circle} on:select={() => selectShape(Shape.Circle)} shapeType={Shape.Circle} />
-    <GenericShape id="statueShapeSquare" isClicked={selectedShape === Shape.Square} on:select={() => selectShape(Shape.Square)} shapeType={Shape.Square} />
+    {#each shapes as shape}
+      <GenericShape 
+        isClicked={selectedShape === shape}
+        on:click={() => selectShape(shape)}
+        shapeType={shape}/>
+    {/each}
   </div>
 </div>
 

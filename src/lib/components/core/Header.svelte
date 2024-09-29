@@ -96,7 +96,7 @@
     gap: 1rem;
   }
 
-  .desktop-nav a, .mobile-nav a {
+  .desktop-nav a {
     text-decoration: none;
     color: var(--text-color);
   }
@@ -109,23 +109,6 @@
 
   :global(svg) {
     stroke: var(--outline-color);
-  }
-
-  .mobile-nav {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: var(--background-color);
-  }
-
-  .mobile-nav > * {
-    margin-bottom: 1rem;
-  }
-
-  .theme-toggle-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   @media (max-width: 768px) {

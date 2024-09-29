@@ -21,23 +21,19 @@
 
 <div class="checklist-guide">
   <h3 class="title">Steps for {strategy}</h3>
-  
   <div class="progress-bar">
     <div class="progress" style="width: {progress}%"></div>
   </div>
-  
   <p class="progress-text">
     {completedSteps.filter(Boolean).length} of {steps.length} steps completed
   </p>
-
   <ul class="step-list">
     {#each steps as step, i}
-      <li 
-        class="step-item" 
+      <li
+        class="step-item"
         class:completed={completedSteps[i]}
         on:click={() => toggleStep(i)}
-        in:fade={{ duration: 200, delay: i * 100 }}
-      >
+        in:fade={{ duration: 200, delay: i * 100 }}>
         <div class="step-checkbox">
           {#if completedSteps[i]}
             <CheckSquare size={20} />

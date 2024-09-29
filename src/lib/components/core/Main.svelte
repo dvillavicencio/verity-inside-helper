@@ -188,15 +188,6 @@ main {
   gap: 0.5rem;
 }
 
-li {
-  margin: 1rem 0;
-}
-
-ul {
-  margin: 0;
-  max-width: 20rem;
-}
-
 .input-container {
   display: flex;
   flex-direction: column;
@@ -216,30 +207,6 @@ ul {
   max-width: 32rem;
   background-color: var(--background-color);
   padding: 0 1.25rem;
-}
-
-.error-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  margin: 0.25rem;
-  padding: 0 .5rem;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.83rem;
-  text-align: center;
-}
-
-.title {
-  align-self: center;
-  color: var(--text-color);
-}
-
-.list-item {
-  color: var(--text-color);
 }
 </style>
 

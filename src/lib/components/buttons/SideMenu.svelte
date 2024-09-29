@@ -33,6 +33,7 @@ function closeMenu() {
     </div>
 
     <div class="menu-overlay"
+      aria-label="Menu overlay"
       on:click={closeMenu}
       transition:fade={{duration: 200}}>
     </div>
@@ -43,10 +44,6 @@ function closeMenu() {
 <style>
 a, a:visited {
   text-decoration: none;
-}
-
-path {
-  stroke: var(--text-color);
 }
 
 .close-button {

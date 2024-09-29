@@ -45,12 +45,13 @@
   <h3>Where is your statue?</h3>
   <div class="side-options">
     {#each sides as side}
-        <label 
+        <div class="card" 
+          aria-label={`Select ${side.value}`}
           class:selected={selectedLocation === side.value}
           on:click={() => selectStatue(side.value)}> 
           <svelte:component this={side.icon} />
           <span>{side.label}</span>
-        </label>
+        </div>
       {/each}
   </div>
 </div>
@@ -70,14 +71,7 @@
   gap: clamp(1rem, 1.5rem, 2rem);
 }
 
-input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-label {
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,7 +89,7 @@ label {
   border-color: var(--selected-color);
 }
 
-label :global(svg) {
+.card :global(svg) {
   width: 2rem;
   height: 2rem;
   margin-bottom: 0.5rem;
@@ -112,7 +106,7 @@ h3 {
 }
 
 @media(hover: hover) and (pointer: fine) {
-  label:hover {
+  .card:hover {
     background-color: var(--hover-background-color);
   }
 }
