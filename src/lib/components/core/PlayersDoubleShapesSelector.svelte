@@ -52,7 +52,7 @@ $: if(shapes.length == 2) {
 </script>
 
 <div class="container">
-  <h3>How many guardians are doubled?</h3>
+  <h3>How many players are doubled?</h3>
   <div class="options-container">
     {#each options as option}
       <label

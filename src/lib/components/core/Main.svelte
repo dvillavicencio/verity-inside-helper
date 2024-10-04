@@ -159,9 +159,10 @@ $: errorMessageVisible = statueShape && shapes.length  && !validateShapes(statue
   {#if outputVisible}
     <div class="output-container" bind:this={outputContainer} transition:fly={{y: -50, duration: 500}}> 
       <ChecklistStepGuide 
-        steps={fastStrategy ?
-          solutions.defineFastStrategySteps(statueLocation, statueShape, shapes, playersDoubled) :
-          solutions.defineNormalSteps(statueLocation, statueShape, shapes)}
+       solution={fastStrategy ?
+          solutions.fastStrategy(statueLocation, statueShape, shapes, playersDoubled) :
+          solutions.normalStrategy(statueLocation, statueShape, shapes)
+       }
         strategy={fastStrategy ? "Fast Strategy" : "Normal/LFG Strategy"}
         on:progress={(e) => {
           completedSteps = e.detail.completed;

@@ -1,12 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { fade } from 'svelte/transition';
+  import type { Solution } from "../../types/Solution.ts";
   import { Square, CheckSquare } from 'lucide-svelte';
 
-  export let steps: string[];
+  export let solution: Solution;
   export let strategy: string;
 
-  let completedSteps: boolean[] = new Array(steps.length).fill(false);
+  let completedSteps: boolean[] = new Array(solution.steps.length).fill(false);
   
   const dispatch = createEventDispatcher();
 
@@ -16,19 +17,20 @@
     dispatch('progress', { completed: completedSteps.filter(Boolean).length, total: steps.length });
   }
 
-  $: progress = (completedSteps.filter(Boolean).length / steps.length) * 100;
+  $: progress = (completedSteps.filter(Boolean).length / solution.steps.length) * 100;
 </script>
 
 <div class="checklist-guide">
-  <h3 class="title">Steps for {strategy}</h3>
+  <h3 class="title">{@html solution.title}</h3>
+  <p class="description">{@html solution.description}</p>
   <div class="progress-bar">
     <div class="progress" style="width: {progress}%"></div>
   </div>
   <p class="progress-text">
-    {completedSteps.filter(Boolean).length} of {steps.length} steps completed
+    {completedSteps.filter(Boolean).length} of {solution.steps.length} steps completed
   </p>
   <ul class="step-list">
-    {#each steps as step, i}
+    {#each solution.steps as step, i}
       <li
         class="step-item"
         class:completed={completedSteps[i]}
@@ -60,6 +62,12 @@
     text-align: center;
     color: var(--text-color);
     margin-bottom: 1rem;
+  }
+
+  .description {
+    text-align: center;
+    color: var(--text-color);
+
   }
 
   .progress-bar {
