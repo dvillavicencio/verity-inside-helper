@@ -65,7 +65,7 @@ export function normalStrategy(location: StatueLocation, statueShape: Shape, sha
     const value = shapes.find(s => s !== statueShape);
     return {
       title: "Normal/LFG Strategy",
-      description: "The normal strategy is as simple as three steps: double up, distribute, pick up and get out.",
+      description: "The normal strategy is as simple as four steps: double up, distribute, pick up, and get out.",
       steps: [
         `<b>Kill</b> a knight until it drops a <b>${value}</b> and <b>deposit</b> it on the statue holding a <b>${value}</b>`,
         `Once you have only two ${statueShape}s on your wall, <b>kill</b> knights, <b>pick up</b> each <b>${statueShape}</b> and deposit them both on <b>${otherLocations[0]}</b> and <b>${otherLocations[1]}</b> (one at a time)`,
